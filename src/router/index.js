@@ -18,6 +18,14 @@ const routes = [
       title: "Products",
     },
   },
+  {
+    name: "product_details",
+    path: "/products/product-details/:productId",
+    component: () => import("@/views/ProductDetails.vue"),
+    meta: {
+      title: "Product Details",
+    },
+  },
 
   {
     name: "About",

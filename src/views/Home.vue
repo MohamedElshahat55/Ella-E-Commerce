@@ -43,6 +43,7 @@ import TopCategories from "../components/home_page/TopCategories.vue";
 import NewProducts from "../components/home_page/NewProducts.vue";
 import QualitySection from "../components/home_page/QualitySection.vue";
 import WhyShopWithUs from "../components/home_page/WhyShopWithUs.vue";
+
 import { productsModule } from "../stores/products";
 import { mapActions, mapState } from "pinia";
 export default {

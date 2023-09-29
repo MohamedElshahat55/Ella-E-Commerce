@@ -20,7 +20,10 @@
           <v-col cols="3" v-for="item in categoryProducts" :key="item.id">
             <v-card elevation="0">
               <v-hover v-slot="{ isHovering, props }">
-                <div class="parent" style="height: 200px; overflow: hidden">
+                <div
+                  class="image_parent position-relative"
+                  style="height: 200px; overflow: hidden"
+                >
                   <v-img
                     v-bind="props"
                     :src="
@@ -34,6 +37,17 @@
                       isHovering ? 1.05 : 1
                     }`"
                   />
+                  <v-btn
+                    style="position:absolute;top:50%;left:50%;transform :translate(-50%,-50%);font-size: 12px; text-transform;:none;transition:0.3 all ease-in-out;opacity:0;border: 1px solid rgb(117, 117, 117);"
+                    rounded="pill"
+                    class="bg-white quick-view-btn p-2"
+                    variant="outlined"
+                    height="30"
+                    width="100"
+                    density="compact"
+                    @click="openPopup(item)"
+                    >Quick View</v-btn
+                  >
                 </div>
               </v-hover>
               <v-card-text class="pl-0 pb-1"
@@ -86,6 +100,12 @@
               </v-btn-toggle>
               <div class="mx-auto my-4 py-3 px-7 d-flex justify-center">
                 <v-btn
+                  @click="
+                    $router.push({
+                      name: 'product_details',
+                      params: { productId: item.id },
+                    })
+                  "
                   class="text-capitalize rounded-pill w-100 py-2 font-weight-bold"
                   variant="outlined"
                   >choose options</v-btn
@@ -104,6 +124,7 @@ import { productsModule } from "../stores/products";
 import { mapActions, mapState } from "pinia";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 export default {
+  inject: ["Emitter"],
   components: {
     VSkeletonLoader,
   },
@@ -113,6 +134,10 @@ export default {
   }),
   methods: {
     ...mapActions(productsModule, ["getProductsCategory"]),
+
+    openPopup(product) {
+      this.Emitter.emit("openPopup", product);
+    },
   },
   computed: {
     ...mapState(productsModule, ["categoryProducts"]),
@@ -131,3 +156,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.products-categories {
+  .image_parent:hover {
+    .quick-view-btn {
+      opacity: 1 !important;
+    }
+  }
+}
+</style>
