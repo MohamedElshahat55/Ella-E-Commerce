@@ -139,6 +139,7 @@
                     height="50"
                     rounded="pill"
                     @click="addToCart(product)"
+                    :loading="btnLoading"
                     >Add To Cart</v-btn
                   >
                 </v-card-actions>
@@ -166,12 +167,18 @@ export default {
     loading: false,
     dialog: false,
     product: "",
+    btnLoading: false,
   }),
   methods: {
     ...mapActions(cartStore, ["addItem"]),
     addToCart(item) {
       item.quantity = this.quantity;
-      this.addItem(item);
+      this.btnLoading = true;
+      setTimeout(() => {
+        this.btnLoading = false;
+        this.addItem(item);
+        this.Emitter.emit("showMsg", item.title);
+      }, 1000);
     },
   },
 

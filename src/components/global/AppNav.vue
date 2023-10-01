@@ -100,14 +100,17 @@
               </div>
               <div
                 class="wishlist d-flex flex-column align-center"
-                style="cursor: pointer"
+                :style="`cursor: pointer ; pointer-events:${
+                  $route.name == 'cart_page' ? 'none' : 'unset'
+                }`"
                 @click="openCart"
               >
                 <v-badge
                   location="right top"
-                  content="2"
+                  :content="cartItems.length"
                   color="error"
                   offsetX="-12"
+                  v-if="cartItems.length"
                 ></v-badge>
                 <svg
                   style="width: 35px; fill: #ffb547"
@@ -209,6 +212,7 @@
 
 <script>
 import { productsModule } from "../../stores/products";
+import { cartStore } from "../../stores/cart";
 import { mapState } from "pinia";
 export default {
   inject: ["Emitter"],
@@ -409,6 +413,7 @@ export default {
   },
   computed: {
     ...mapState(productsModule, ["categories"]),
+    ...mapState(cartStore, ["cartItems"]),
   },
 };
 </script>

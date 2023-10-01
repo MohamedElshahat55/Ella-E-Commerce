@@ -26,13 +26,20 @@ const routes = [
       title: "Product Details",
     },
   },
-
   {
-    name: "About",
-    path: "/about",
-    component: () => import("@/views/About.vue"),
+    name: "cart_page",
+    path: "/cart-page",
+    component: () => import("@/views/CartPage.vue"),
     meta: {
-      title: "About",
+      title: "Cart Page",
+    },
+  },
+  {
+    name: "checkout",
+    path: "/checkout",
+    component: () => import("@/views/Checkout.vue"),
+    meta: {
+      title: "checkout",
     },
   },
 ];
